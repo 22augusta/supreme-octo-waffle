@@ -1,6 +1,7 @@
+
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import { NavigationContainer, DrawerActions, DefaultTheme as NavLight } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme as NavLight } from '@react-navigation/native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -12,10 +13,28 @@ import FeedScreen from './src/screens/FeedScreen';
 import DetalhesScreen from './src/screens/DetalhesScreen';
 import SobreScreen from './src/screens/SobreScreen';
 
-const Drawer = createDrawerNavigator();
-const Stack = createNativeStackNavigator();
-const Tabs = createBottomTabNavigator();
+// ✅ Tipos para rotas
+export type RootDrawerParamList = {
+  Principal: undefined;
+  Sobre: undefined;
+};
 
+export type RootStackParamList = {
+  Tabs: undefined;
+  Detalhes: { from?: string } | undefined;
+};
+
+export type RootTabsParamList = {
+  Home: undefined;
+  Feed: undefined;
+};
+
+// ✅ Navegadores tipados
+const Drawer = createDrawerNavigator<RootDrawerParamList>();
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tabs = createBottomTabNavigator<RootTabsParamList>();
+
+// ✅ Temas
 const paperTheme = {
   ...MD3LightTheme,
   colors: {
@@ -36,14 +55,15 @@ const navTheme = {
   },
 };
 
+// ✅ Tabs com tipagem
 function TabsScreen() {
   return (
     <Tabs.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({ route }: { route: { name: keyof RootTabsParamList } }) => ({
         headerShown: false,
         tabBarActiveTintColor: '#2563EB',
         tabBarStyle: { backgroundColor: '#FFFFFF' },
-        tabBarIcon: ({ color, size }) => {
+        tabBarIcon: ({ color, size }: { color: string; size: number }) => {
           const icon = route.name === 'Home' ? 'pokeball' : 'rss';
           return <Icon source={icon as any} size={size} color={color} />;
         },
@@ -55,7 +75,8 @@ function TabsScreen() {
   );
 }
 
-function StackPrincipal({ navigation }: any) {
+// ✅ Stack Principal com tipagem
+function StackPrincipal({ navigation }: { navigation: any }) {
   return (
     <>
       <Header title="Principal" navigation={navigation} />
@@ -67,6 +88,7 @@ function StackPrincipal({ navigation }: any) {
   );
 }
 
+// ✅ App
 export default function App() {
   return (
     <PaperProvider theme={paperTheme}>
@@ -82,14 +104,18 @@ export default function App() {
             name="Principal"
             component={StackPrincipal}
             options={{
-              drawerIcon: ({ color, size }) => <Icon source="view-dashboard" size={size} color={color} />,
+              drawerIcon: ({ color, size }: { color: string; size: number }) => (
+                <Icon source="view-dashboard" size={size} color={color} />
+              ),
             }}
           />
           <Drawer.Screen
             name="Sobre"
             component={SobreScreen}
             options={{
-              drawerIcon: ({ color, size }) => <Icon source="information-outline" size={size} color={color} />,
+              drawerIcon: ({ color, size }: { color: string; size: number }) => (
+                <Icon source="information-outline" size={size} color={color} />
+              ),
             }}
           />
         </Drawer.Navigator>
