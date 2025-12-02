@@ -9,7 +9,7 @@ export default function SobreScreen({ navigation }: any) {
       <Header title="Sobre" navigation={navigation} />
       <ScreenContainer>
         <Card>
-          <Card.Title title="Sobre o App" left={(p) => <Icon source="information" size={24} {...p} />} />
+          <Card.Title title="Sobre o App" left={() => <Icon source="information" size={24} />} />
           <Card.Content>
             <Text>App React Native com Paper + Drawer + Tabs + Stack + PokéAPI.</Text>
           </Card.Content>

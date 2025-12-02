@@ -22,7 +22,7 @@ export default function FeedScreen({ navigation }: any) {
   return (
     <ScreenContainer>
       <Card mode="elevated">
-        <Card.Title title="Feed Pokémon" left={(props) => <Icon source="rss" size={24} {...props} />} />
+       <Card.Title title="Feed" left={() => <Icon source="rss" size={24} />} />
         <Card.Content>
           {loading ? (
             <Text>Carregando...</Text>

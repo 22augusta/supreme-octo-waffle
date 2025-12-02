@@ -1,4 +1,3 @@
-
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer, DefaultTheme as NavLight } from '@react-navigation/native';

@@ -22,7 +22,7 @@ export default function DetalhesScreen({ route, navigation }: any) {
       <ScreenContainer>
         {pokemon ? (
           <Card>
-            <Card.Title title={pokemon.name.toUpperCase()} left={(p) => <Icon source="pokeball" size={24} {...p} />} />
+            <Card.Title title={pokemon.name.toUpperCase()} left={() => <Icon source="pokeball" size={24} />} />
             <Card.Content>
               <View style={{ alignItems: 'center', marginBottom: 16 }}>
                 <Icon source={{ uri: pokemon.sprites.front_default }} size={96} />

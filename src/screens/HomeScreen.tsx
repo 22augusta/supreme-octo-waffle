@@ -18,7 +18,7 @@ export default function HomeScreen({ navigation }: any) {
   return (
     <ScreenContainer>
       <Card mode="elevated">
-        <Card.Title title="Pokémons" left={(props) => <Icon source="pokeball" size={24} {...props} />} />
+        <Card.Title title="Pokémons" left={(props) => <Icon source="pokeball" size={24} />} />
         <Card.Content>
           {loading ? (
             <Text>Carregando...</Text>
