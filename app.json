@@ -1,0 +1,14 @@
+{
+    "expo": {
+        "name": "supreme-octo-waffle",
+        "slug": "supreme-octo-waffle",
+        "platforms": [
+            "ios",
+            "android",
+            "web"
+        ],
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "entryPoint": "./App.tsx"
+    }
+}
