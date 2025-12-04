@@ -1,13 +1,14 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer, DefaultTheme as NavLight } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+// Drawer removed to eliminate dependency on react-native-reanimated
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider, MD3LightTheme } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Header from './src/components/Header';
+import DrawerProvider from './src/components/DrawerProvider';
 import HomeScreen from './src/screens/HomeScreen';
 import FeedScreen from './src/screens/FeedScreen';
 import DetalhesScreen from './src/screens/DetalhesScreen';
@@ -30,7 +31,7 @@ export type RootTabsParamList = {
 };
 
 // ✅ Navegadores tipados
-const Drawer = createDrawerNavigator<RootDrawerParamList>();
+// Drawer navigator removed; using top-level Stack navigation instead
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tabs = createBottomTabNavigator<RootTabsParamList>();
 
@@ -78,13 +79,14 @@ function TabsScreen() {
 // ✅ Stack Principal com tipagem
 function StackPrincipal({ navigation }: { navigation: any }) {
   return (
-    <>
+    <DrawerProvider navigation={navigation}>
       <Header title="Principal" navigation={navigation} />
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Tabs" component={TabsScreen} />
         <Stack.Screen name="Detalhes" component={DetalhesScreen} />
+        <Stack.Screen name="Sobre" component={SobreScreen} />
       </Stack.Navigator>
-    </>
+    </DrawerProvider>
   );
 }
 
@@ -93,32 +95,8 @@ export default function App() {
   return (
     <PaperProvider theme={paperTheme}>
       <NavigationContainer theme={navTheme}>
-        <Drawer.Navigator
-          screenOptions={{
-            headerShown: false,
-            drawerActiveTintColor: '#2563EB',
-            drawerStyle: { backgroundColor: '#FFFFFF' },
-          }}
-        >
-          <Drawer.Screen
-            name="Principal"
-            component={StackPrincipal}
-            options={{
-              drawerIcon: ({ color, size }: { color: string; size: number }) => (
-                <MaterialCommunityIcons name="view-dashboard" size={size} color={color} />
-              ),
-            }}
-          />
-          <Drawer.Screen
-            name="Sobre"
-            component={SobreScreen}
-            options={{
-              drawerIcon: ({ color, size }: { color: string; size: number }) => (
-                <MaterialCommunityIcons name="information-outline" size={size} color={color} />
-              ),
-            }}
-          />
-        </Drawer.Navigator>
+        {/* Root navigator: StackPrincipal includes Tabs, Detalhes and Sobre */}
+        <StackPrincipal />
       </NavigationContainer>
     </PaperProvider>
   );
