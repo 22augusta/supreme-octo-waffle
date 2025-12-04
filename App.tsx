@@ -4,7 +4,8 @@ import { NavigationContainer, DefaultTheme as NavLight } from '@react-navigation
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Provider as PaperProvider, MD3LightTheme, Icon } from 'react-native-paper';
+import { Provider as PaperProvider, MD3LightTheme } from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Header from './src/components/Header';
 import HomeScreen from './src/screens/HomeScreen';
@@ -63,8 +64,8 @@ function TabsScreen() {
         tabBarActiveTintColor: '#2563EB',
         tabBarStyle: { backgroundColor: '#FFFFFF' },
         tabBarIcon: ({ color, size }: { color: string; size: number }) => {
-          const icon = route.name === 'Home' ? 'pokeball' : 'rss';
-          return <Icon source={icon as any} size={size} color={color} />;
+          const name = route.name === 'Home' ? 'pokeball' : 'rss';
+          return <MaterialCommunityIcons name={name} size={size} color={color} />;
         },
       })}
     >
@@ -104,7 +105,7 @@ export default function App() {
             component={StackPrincipal}
             options={{
               drawerIcon: ({ color, size }: { color: string; size: number }) => (
-                <Icon source="view-dashboard" size={size} color={color} />
+                <MaterialCommunityIcons name="view-dashboard" size={size} color={color} />
               ),
             }}
           />
@@ -113,7 +114,7 @@ export default function App() {
             component={SobreScreen}
             options={{
               drawerIcon: ({ color, size }: { color: string; size: number }) => (
-                <Icon source="information-outline" size={size} color={color} />
+                <MaterialCommunityIcons name="information-outline" size={size} color={color} />
               ),
             }}
           />
