@@ -32,7 +32,7 @@ export default function DetalhesScreen({ route, navigation }: any) {
         {error ? (
           <Text>Erro: {error}</Text>
         ) : pokemon ? (
-            <Card>
+          <Card>
             <Card.Title title={pokemon.name.toUpperCase()} left={() => <MaterialCommunityIcons name="pokeball" size={24} />} />
             <Card.Content>
               <View style={{ alignItems: 'center', marginBottom: 16 }}>

@@ -41,31 +41,31 @@ export default function FeedScreen({ navigation }: any) {
 
   return (
     <ScreenContainer>
-       <Card mode="elevated">
-         <Card.Title title="Feed" left={() => <MaterialCommunityIcons name="rss" size={24} />} />
+      <Card mode="elevated">
+        <Card.Title title="Feed" left={() => <MaterialCommunityIcons name="rss" size={24} />} />
+        <Card.Content>
+          {loading ? (
+            <Text>Carregando...</Text>
+          ) : error ? (
+            <Text>Erro: {error}</Text>
+          ) : (
+            pokemons.map((p, index) => (
+              <Card key={index} style={{ marginVertical: 8 }}>
+                <Card.Title title={p.name.toUpperCase()} />
                 <Card.Content>
-                  {loading ? (
-                    <Text>Carregando...</Text>
-                  ) : error ? (
-                    <Text>Erro: {error}</Text>
-                  ) : (
-                    pokemons.map((p, index) => (
-                      <Card key={index} style={{ marginVertical: 8 }}>
-                        <Card.Title title={p.name.toUpperCase()} />
-                        <Card.Content>
-                          <View style={{ alignItems: 'center' }}>
-                            <Image source={{ uri: p.sprites.front_default }} style={{ width: 64, height: 64 }} />
-                          </View>
-                        </Card.Content>
-                        <Card.Actions>
-                          <Button onPress={() => navigation.navigate('Detalhes', { from: p.name })}>
-                            Ver Detalhes
-                          </Button>
-                        </Card.Actions>
-                      </Card>
-                    ))
-                  )}
+                  <View style={{ alignItems: 'center' }}>
+                    <Image source={{ uri: p.sprites.front_default }} style={{ width: 64, height: 64 }} />
+                  </View>
                 </Card.Content>
+                <Card.Actions>
+                  <Button onPress={() => navigation.navigate('Detalhes', { from: p.name })}>
+                    Ver Detalhes
+                  </Button>
+                </Card.Actions>
+              </Card>
+            ))
+          )}
+        </Card.Content>
       </Card>
     </ScreenContainer>
   );
